@@ -1,2 +1,2 @@
 # POC-sc
-The Proof of Concept for KYC blockchain
+This project is a part of POC for KYC blockchain.The smart contracts are based on ETH.
