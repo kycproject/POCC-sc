@@ -1,2 +1,2 @@
-# POC-sc
-This project is a part of POC for KYC blockchain.The smart contracts are based on ETH.
+# POCC-sc
+This project is a part of POCC for KYC blockchain. The smart contracts are base on private ETH.
