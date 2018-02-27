@@ -16,7 +16,7 @@ contract UserContract {
     uint8 tokenDay = 1;
     
     mapping(address => UserStruct) internal users;
-    event GetFriendRelateQuestionsEvent(address userAddress, bytes32[] questions);
+    event GetFriendRelateQuestions(address userAddress, bytes32[] questions);
     
     function addUserAskQuestions(address userAddress, bytes32 questionUid) internal {
         UserStruct storage user = users[userAddress];
@@ -98,7 +98,7 @@ contract UserContract {
                 questions.push(friendQues[j]);
             }
         }
-        GetFriendRelateQuestionsEvent(msg.sender, questions);
+        GetFriendRelateQuestions(msg.sender, questions);
         return questions;
     }
     

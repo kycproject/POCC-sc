@@ -4,12 +4,17 @@ import "./KycUtils.sol";
 
 contract CommentContract{
     
-    struct  CommentStruct{
+    struct WatchingStruct {
+        address watching;
+        uint token;
+        uint8 currentStatus; // The status of watching; 1 init ; 2 approve; 3 disapprove
+    }
+    
+    struct CommentStruct {
         address commentator;
-        bytes32 question;
-        address[] approvers; 
-        address[] disapprovers;
-        address[] watchings;
+        bytes32 questionUid;
+        uint score;
+        mapping(address => WatchingStruct) watchings;
     }
     
     mapping(bytes32 => CommentStruct) internal comments;
@@ -19,25 +24,17 @@ contract CommentContract{
         // get uid for this comments
         bytes32 commentUid = KycUtils.getUid(bzId);
         comments[commentUid].commentator = msg.sender;
-        comments[commentUid].question = questionUid;
+        comments[commentUid].questionUid = questionUid;
         return commentUid;
     }
     
-    //Approve of one comment
-    function approve(bytes32 commentUid) public {
-        CommentStruct storage comment = comments[commentUid];
-        comment.approvers.push(msg.sender);
-    }
-    //Disapprove of one comment
-    function disapprove(bytes32 commentUid) public {
-        CommentStruct storage comment = comments[commentUid];
-        comment.disapprovers.push(msg.sender);
-    }
-
+    
     //Add one user to watchings list
     function addWatchToComment(bytes32 commentUid) internal {
         CommentStruct storage comment = comments[commentUid];
-        comment.watchings.push(msg.sender);
+        comment.watchings[msg.sender].watching = msg.sender;
+        comment.watchings[msg.sender].token = msg.value;
+        comment.watchings[msg.sender].currentStatus = 1;
     }
     
 }
